@@ -1,2 +1,5 @@
-app-productos
-App with React.JS, Typescript and  MySQL
+# App Productos
+Apliacion web CRUD.
+- [x] React.js 
+- [x] Typescript  
+- [x] MySQL
