@@ -1,54 +1,34 @@
-import {useState, useEffect} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import './App.css';
 import ListaProductos from './components/ListaProductos'
+import estadoInicial from './states/states';
 import Formulario from './components/Formulario'
+import {Productos} from './types/types'
 
-interface Productos{
-  id: number
-  nombre: string
-  descripcion: string
-  imagen: string
-  precio: number
-  stock: number
-}
 interface AppEstado{
   productos: Array<Productos>
   nuevoProductosNumber: number
-
 }
-
-const estadoInicial = [
-  {
-    id: 1,
-    nombre: 'reloj',
-    descripcion: 'Reloj de mano pequeño de color azul digital con luces led.',
-    imagen: 'https://i.postimg.cc/50tnFNqB/reloj.jpg',
-    precio: 40.20,
-    stock: 13
-  },
-  {
-    id: 2,
-    nombre: 'cuadro',
-    descripcion: 'Cuadro decorativo pequeño de colo gris para niños.',
-    imagen: 'https://i.postimg.cc/43PWdht4/cuadro.jpg',
-    precio: 50.70,
-    stock: 15
-  },
-]
 
 function App() {
   const [productos, setProductos] = useState<AppEstado["productos"]>([])
-  const [nuevosProductos, setNuevosProductos] = useState<AppEstado["nuevoProductosNumber"]>(0)
+
+  const divRef = useRef<HTMLDivElement>(null)
   
   useEffect(()=>{
     setProductos(estadoInicial)
   },[])
 
+  const handleNewProductos = (newProductos: Productos): void => {
+    setProductos(productos => [...productos, newProductos])
+  }
+
   return (
-    <div className="App">
+    <div className="App" ref={divRef}>
+      <h1>Nuevo Producto</h1>
+      <Formulario onNewProductos={handleNewProductos}/>
       <h1>Productos</h1>
-      <ListaProductos productos={productos}/>
-      <Formulario/>
+      <ListaProductos productos={productos}/>      
     </div>
   );
 }

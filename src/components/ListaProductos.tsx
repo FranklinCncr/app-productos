@@ -1,12 +1,7 @@
+import {Productos} from './../types/types'
+
 interface Props{
-    productos: Array<{
-        id: number
-        nombre: string
-        descripcion: string
-        imagen: string
-        precio: number
-        stock: number
-    }>
+    productos: Array<Productos>
 }
 const ListaProductos = ({productos}: Props) => {
     const RenderListaProductos = (): JSX.Element[] =>{
